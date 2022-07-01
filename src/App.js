@@ -7,6 +7,7 @@ import Favorites from './pages/Favorites';
 import Profile from './pages/Profile';
 import ProfileEdit from './pages/ProfileEdit';
 import NotFound from './pages/NotFound';
+import Header from './components/Header';
 
 // isso é a mudança inicial
 
@@ -22,6 +23,7 @@ class App extends React.Component {
           <Profile />
           <ProfileEdit />
           <NotFound />
+          <Header />
         </div>
       </BrowserRouter>
     );
