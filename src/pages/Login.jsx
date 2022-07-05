@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { createUser } from '../services/userAPI';
-// import Carregando from './Carregando';
+import Carregando from './Carregando';
 // import Carregando from './Carregando';
 // import { Link } from 'react-router-dom';
 // import Search from './Search';
@@ -13,12 +13,13 @@ class Login extends React.Component {
       namePerson: '',
       btnDisabled: true,
       loading: false,
+      redi: false,
     };
   }
 
-  componentWillUnmount() {
-    <h2>Carregando...</h2>;
-  }
+  // componentWillUnmount() {
+  //   <Redirect to="/search" />;
+  // }
 
   handleCondition = () => {
     const { namePerson } = this.state;
@@ -40,26 +41,21 @@ class Login extends React.Component {
     }, this.handleCondition);
   }
 
-  redirectLoad = () => {
-
-  }
-
   handleSubmit = async () => {
     const { namePerson } = this.state;
     this.setState({
       loading: true,
-    }, this.redirectLoad);
+    });
 
     await createUser({ name: namePerson });
     console.log('State', namePerson);
-
     this.setState({
-      loading: false,
+      redi: true,
     });
   }
 
   render() {
-    const { loading, btnDisabled } = this.state;
+    const { loading, btnDisabled, redi } = this.state;
     console.log(loading);
     return (
       <div data-testid="page-login">
@@ -78,7 +74,9 @@ class Login extends React.Component {
 
         </button>
         <div>
-          { loading ? <Redirect to="/search" />
+          { loading ? <Carregando />
+            : null}
+          { redi ? <Redirect to="/search" />
             : null}
           {' '}
         </div>
