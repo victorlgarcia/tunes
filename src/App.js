@@ -7,7 +7,7 @@ import Favorites from './pages/Favorites';
 import Profile from './pages/Profile';
 import ProfileEdit from './pages/ProfileEdit';
 import NotFound from './pages/NotFound';
-import Header from './components/Header';
+// import Header from './components/Header';
 import Carregando from './pages/Carregando';
 
 // isso é a mudança inicial
@@ -23,12 +23,10 @@ class App extends React.Component {
           <Route path="/favorites" component={ Favorites } />
           <Route path="/profile" exact component={ Profile } />
           <Route path="/profile/edit" component={ ProfileEdit } />
-          <Route path="/carregando" exact component={ Carregando } />
+          <Route path="/carregando" component={ Carregando } />
           <NotFound />
 
         </Switch>
-        {' '}
-        <Header />
 
       </BrowserRouter>
     );
