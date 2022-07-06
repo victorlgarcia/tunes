@@ -1,6 +1,8 @@
 import React from 'react';
 // import { Link } from 'react-router-dom';
 import Header from '../components/Header';
+import searchAlbumsAPI from '../services/searchAlbumsAPI';
+import Carregando from './Carregando';
 
 class Search extends React.Component {
   constructor() {
@@ -8,6 +10,7 @@ class Search extends React.Component {
     this.state = {
       input: '',
       btnDisabled: true,
+      load: false,
     };
   }
 
@@ -31,8 +34,25 @@ class Search extends React.Component {
     }
   }
 
+   test = async () => {
+     const { input } = this.state;
+     this.setState({
+       load: true,
+     });
+     await searchAlbumsAPI(input);
+     this.setState({
+       load: false,
+     });
+   };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    this.test();
+  }
+
   render() {
-    const { btnDisabled } = this.state;
+    const { btnDisabled, load, input } = this.state;
+    console.log(input, load);
     return (
       <div data-testid="page-search">
 
@@ -46,12 +66,13 @@ class Search extends React.Component {
             type="submit"
             data-testid="search-artist-button"
             disabled={ btnDisabled }
+            onClick={ this.handleSubmit }
           >
             Pesquisar
 
           </button>
         </form>
-
+        {load ? <Carregando /> : null}
       </div>
     );
   }
