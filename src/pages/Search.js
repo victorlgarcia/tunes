@@ -108,6 +108,7 @@ class Search extends React.Component {
           Resultado de álbuns de:
           {/* { apiObj.find((album) => album.artistName === input).artistName} */}
         </p>
+        {apiObj.length === 0 ? <p>Nenhum álbum foi encontrado</p> : null}
         <ul>
           {apiObj.map((album) => (
 
