@@ -1,5 +1,5 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import Carregando from './Carregando';
@@ -106,7 +106,7 @@ class Search extends React.Component {
         {load ? <Carregando /> : null}
         <p>
           Resultado de álbuns de:
-          {/* { apiObj.find((album) => album.artistName === input).artistName} */}
+          { apiObj.includes((album) => album.artistName === input)}
         </p>
         {apiObj.length === 0 ? <p>Nenhum álbum foi encontrado</p> : null}
         <ul>
@@ -114,16 +114,20 @@ class Search extends React.Component {
 
             <li key={ album.collectionId }>
 
-              <p>{album.artistName}</p>
-              <img
-                src={ album.artworkUrl100 }
-                alt={ album.artistName }
-              />
-              <p>{album.collectionId}</p>
-              <p>{album.collectionName}</p>
-              <p>{album.collectionPrice}</p>
-              <p>{album.releaseDate}</p>
-              <p>{album.trackCount}</p>
+              <p>
+                <Link
+                  data-testid={ `link-to-album-${album.collectionId}` }
+                  to={ `/album/${album.collectionId}` }
+                >
+                  <img
+                    src={ album.artworkUrl100 }
+                    alt={ album.collectionName }
+                  />
+                  <p>{album.collectionName}</p>
+
+                </Link>
+
+              </p>
 
             </li>
           ))}
