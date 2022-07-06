@@ -11,6 +11,7 @@ class Search extends React.Component {
       input: '',
       btnDisabled: true,
       load: false,
+      apiObj: [],
     };
   }
 
@@ -34,26 +35,54 @@ class Search extends React.Component {
     }
   }
 
-   test = async () => {
-     const { input } = this.state;
-     this.setState({
-       load: true,
+  // estadoSetado = (value) => {
+  //   this.setState((prevState) => ({
+  //     apiObj: [...prevState.apiObj, value],
+  //   }));
+  // }
 
-     });
-     await searchAlbumsAPI(input);
-     this.setState({
-       load: false,
-     });
-   };
+  //  test = async () => {
+  //    const { input } = this.state;
 
-  handleSubmit = (event) => {
+  //    this.setState({
+  //      load: true,
+
+  //    });
+
+  //    // this.estadoSetado(value);
+  //    this.setState({
+  //      apiObj: await searchAlbumsAPI(input),
+  //    });
+  //    this.setState({
+  //      load: false,
+
+  //    });
+  //  };
+
+  handleSubmit = async (event) => {
     event.preventDefault();
-    this.test();
+    const { input } = this.state;
+
+    this.setState({
+      load: true,
+
+    });
+    const x = await searchAlbumsAPI(input);
+
+    // this.estadoSetado(value);
+    this.setState({
+      apiObj: x,
+    });
+    this.setState({
+      load: false,
+
+    });
+    // this.test();
   }
 
   render() {
-    const { btnDisabled, load, input } = this.state;
-    console.log(input, load);
+    const { btnDisabled, load, apiObj, input } = this.state;
+    // console.log(apiObj.find((album) => input === album.artistName));
     return (
       <div data-testid="page-search">
 
@@ -73,7 +102,31 @@ class Search extends React.Component {
 
           </button>
         </form>
+
         {load ? <Carregando /> : null}
+        <p>
+          Resultado de álbuns de:
+          {/* { apiObj.find((album) => album.artistName === input).artistName} */}
+        </p>
+        <ul>
+          {apiObj.map((album) => (
+
+            <li key={ album.collectionId }>
+
+              <p>{album.artistName}</p>
+              <img
+                src={ album.artworkUrl100 }
+                alt={ album.artistName }
+              />
+              <p>{album.collectionId}</p>
+              <p>{album.collectionName}</p>
+              <p>{album.collectionPrice}</p>
+              <p>{album.releaseDate}</p>
+              <p>{album.trackCount}</p>
+
+            </li>
+          ))}
+        </ul>
       </div>
     );
   }
