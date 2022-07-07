@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
+import Artista from './Artista';
+// import Artist from './Artist';
 import Carregando from './Carregando';
 
 class Search extends React.Component {
@@ -9,6 +11,7 @@ class Search extends React.Component {
     super();
     this.state = {
       input: '',
+      artist: '',
       btnDisabled: true,
       load: false,
       apiObj: [],
@@ -62,8 +65,12 @@ class Search extends React.Component {
   handleSubmit = async (event) => {
     event.preventDefault();
     const { input } = this.state;
+    this.setState({
+      artist: input,
+    });
 
     this.setState({
+
       load: true,
 
     });
@@ -72,17 +79,24 @@ class Search extends React.Component {
     // this.estadoSetado(value);
     this.setState({
       apiObj: x,
-    });
+      input: '',
+    }, this.handleCondition);
     this.setState({
+
       load: false,
 
     });
     // this.test();
   }
 
+  // renderName = () => {
+  //   const { apiObj, input } = this.state;
+  //   return apiObj.find((album) => album.artistName === input).artistName;
+  // }
+
   render() {
-    const { btnDisabled, load, apiObj, input } = this.state;
-    // console.log(apiObj.find((album) => input === album.artistName));
+    const { btnDisabled, load, apiObj, input, artist } = this.state;
+
     return (
       <div data-testid="page-search">
 
@@ -91,6 +105,7 @@ class Search extends React.Component {
           <input
             data-testid="search-artist-input"
             onChange={ this.handleValue }
+            value={ input }
           />
           <button
             type="submit"
@@ -103,31 +118,38 @@ class Search extends React.Component {
           </button>
         </form>
 
+        {artist.length > 0
+          ? <Artista input={ artist } />
+
+          : null}
+        {/* {apiObj.length > 0
+          ? `Resultado de álbuns de:
+
+            ${apiObj.find((album) => album.artistName).artistName}`
+
+          : null} */}
+
         {load ? <Carregando /> : null}
-        <p>
-          Resultado de álbuns de:
-          { apiObj.includes((album) => album.artistName === input)}
-        </p>
+
         {apiObj.length === 0 ? <p>Nenhum álbum foi encontrado</p> : null}
+
         <ul>
+
           {apiObj.map((album) => (
 
             <li key={ album.collectionId }>
 
-              <p>
-                <Link
-                  data-testid={ `link-to-album-${album.collectionId}` }
-                  to={ `/album/${album.collectionId}` }
-                >
-                  <img
-                    src={ album.artworkUrl100 }
-                    alt={ album.collectionName }
-                  />
-                  <p>{album.collectionName}</p>
+              <Link
+                data-testid={ `link-to-album-${album.collectionId}` }
+                to={ `/album/${album.collectionId}` }
+              >
+                <img
+                  src={ album.artworkUrl100 }
+                  alt={ album.collectionName }
+                />
+                <p>{album.collectionName}</p>
 
-                </Link>
-
-              </p>
+              </Link>
 
             </li>
           ))}

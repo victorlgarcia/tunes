@@ -29,7 +29,7 @@ class Header extends React.Component {
   render() {
     // const { createUser } = this.props;
     const { ret, recoveryName } = this.state;
-    console.log(recoveryName);
+    // console.log(recoveryName);
     return (
       <>
         <h4> Menu </h4>
