@@ -14,6 +14,7 @@ class album extends React.Component {
       position: [],
       songs: [],
       loading: false,
+      // ischecked: false,
     };
   }
 
@@ -59,8 +60,10 @@ class album extends React.Component {
 
           {songs.filter((disco) => disco !== position)
             .map((disc, id) => (<MusicCard
-              { ...disc }
+              disc={ disc }
               handleFavorite={ this.handleFavorite }
+              // song={ songs }
+              // checked={ ischecked }
               key={ id }
             />))}
 
