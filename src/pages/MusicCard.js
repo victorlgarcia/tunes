@@ -32,8 +32,8 @@ class MusicCard extends React.Component {
   }
 
   render() {
-    const { trackId, disc } = this.props;
-    const { trackName, previewUrl } = disc;
+    const { disc } = this.props;
+    const { trackName, previewUrl, trackId } = disc;
     const { checked } = this.state;
     return (
       <li>
