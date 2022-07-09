@@ -1,11 +1,13 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { getFavoriteSongs } from '../services/favoriteSongsAPI';
+import { getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
+import Carregando from './Carregando';
 
 class MusicCard extends React.Component {
   constructor() {
     super();
     this.state = {
+      loading: false,
       checked: false,
     };
   }
@@ -16,9 +18,26 @@ class MusicCard extends React.Component {
 
   handleChange = ({ target }) => {
     const { handleFavorite } = this.props;
+    if (target.checked) {
+      this.setState({
+        checked: target.checked,
+      }, handleFavorite);
+    } else {
+      this.setState({
+        checked: target.checked,
+      }, this.removeFavorite);
+    }
+  }
+
+  removeFavorite = async () => {
+    const { disc } = this.props;
     this.setState({
-      checked: target.checked,
-    }, handleFavorite);
+      loading: true,
+    });
+    await removeSong(disc);
+    this.setState({
+      loading: false,
+    });
   }
 
   handleGetFavoritesFunction = async () => {
@@ -34,9 +53,10 @@ class MusicCard extends React.Component {
   render() {
     const { disc } = this.props;
     const { trackName, previewUrl, trackId } = disc;
-    const { checked } = this.state;
+    const { checked, loading } = this.state;
     return (
       <li>
+        {loading ? <Carregando /> : null }
         <p>
           {' '}
           {trackName}
