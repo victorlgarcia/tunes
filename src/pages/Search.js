@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import propTypes from 'prop-types';
 import Header from '../components/Header';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import Artista from './Artista';
-// import Artist from './Artist';
 import Carregando from './Carregando';
+// import Album from './Album';
 
 class Search extends React.Component {
   constructor() {
@@ -38,30 +39,6 @@ class Search extends React.Component {
     }
   }
 
-  // estadoSetado = (value) => {
-  //   this.setState((prevState) => ({
-  //     apiObj: [...prevState.apiObj, value],
-  //   }));
-  // }
-
-  //  test = async () => {
-  //    const { input } = this.state;
-
-  //    this.setState({
-  //      load: true,
-
-  //    });
-
-  //    // this.estadoSetado(value);
-  //    this.setState({
-  //      apiObj: await searchAlbumsAPI(input),
-  //    });
-  //    this.setState({
-  //      load: false,
-
-  //    });
-  //  };
-
   handleSubmit = async (event) => {
     event.preventDefault();
     const { input } = this.state;
@@ -76,7 +53,6 @@ class Search extends React.Component {
     });
     const x = await searchAlbumsAPI(input);
 
-    // this.estadoSetado(value);
     this.setState({
       apiObj: x,
       input: '',
@@ -86,13 +62,13 @@ class Search extends React.Component {
       load: false,
 
     });
-    // this.test();
   }
 
-  // renderName = () => {
-  //   const { apiObj, input } = this.state;
-  //   return apiObj.find((album) => album.artistName === input).artistName;
-  // }
+  handleValueAlbum = (albumId) => {
+    console.log(albumId);
+    const { passarValorParaoPai } = this.props;
+    passarValorParaoPai(albumId);
+  }
 
   render() {
     const { btnDisabled, load, apiObj, input, artist } = this.state;
@@ -122,12 +98,6 @@ class Search extends React.Component {
           ? <Artista input={ artist } />
 
           : null}
-        {/* {apiObj.length > 0
-          ? `Resultado de álbuns de:
-
-            ${apiObj.find((album) => album.artistName).artistName}`
-
-          : null} */}
 
         {load ? <Carregando /> : null}
 
@@ -142,6 +112,7 @@ class Search extends React.Component {
               <Link
                 data-testid={ `link-to-album-${album.collectionId}` }
                 to={ `/album/${album.collectionId}` }
+                state={ { albumId: album.collectionId } }
               >
                 <img
                   src={ album.artworkUrl100 }
@@ -158,4 +129,8 @@ class Search extends React.Component {
     );
   }
 }
+
+Search.propTypes = {
+  passarValorParaoPai: propTypes.func,
+}.isRequired;
 export default Search;

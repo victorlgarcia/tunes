@@ -13,13 +13,21 @@ import Carregando from './pages/Carregando';
 // isso é a mudança inicial
 
 class App extends React.Component {
+  recebeValordofilho = (valor) => {
+    console.log(valor);
+  };
+
   render() {
     return (
       <BrowserRouter>
         <Switch>
           <Route path="/" exact component={ Login } />
-          <Route path="/album/:id" component={ Album } />
-          <Route path="/search" component={ Search } />
+          <Route path="/album/:id" render={ (props) => <Album { ...props } /> } />
+          <Route
+            path="/search"
+            component={ Search }
+            passarValorParaoPai={ this.recebeValordofilho }
+          />
           <Route path="/favorites" component={ Favorites } />
           <Route path="/profile" exact component={ Profile } />
           <Route path="/profile/edit" component={ ProfileEdit } />

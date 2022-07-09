@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 class Artista extends React.Component {
   render() {
     const { input } = this.props;
-    console.log(input);
+
     return (
       <p>
         {`Resultado de álbuns de: ${input}`}

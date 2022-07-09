@@ -48,7 +48,7 @@ class Login extends React.Component {
     });
 
     await createUser({ name: namePerson });
-    console.log('State', namePerson);
+
     this.setState({
       redi: true,
     });
@@ -56,7 +56,7 @@ class Login extends React.Component {
 
   render() {
     const { loading, btnDisabled, redi } = this.state;
-    console.log(loading);
+
     return (
       <div data-testid="page-login">
 

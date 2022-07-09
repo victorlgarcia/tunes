@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import { getUser } from '../services/userAPI';
 import Carregando from '../pages/Carregando';
 import { getUser } from '../services/userAPI';
-// import Search from '../pages/Search';
 
 class Header extends React.Component {
   constructor() {
@@ -27,9 +25,8 @@ class Header extends React.Component {
   }
 
   render() {
-    // const { createUser } = this.props;
     const { ret, recoveryName } = this.state;
-    // console.log(recoveryName);
+
     return (
       <>
         <h4> Menu </h4>
