@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
 import MusicCard from './MusicCard';
+import { addSong } from '../services/favoriteSongsAPI';
+import Carregando from './Carregando';
 
 class album extends React.Component {
   constructor() {
@@ -11,6 +13,7 @@ class album extends React.Component {
     this.state = {
       position: [],
       songs: [],
+      loading: false,
     };
   }
 
@@ -28,9 +31,20 @@ class album extends React.Component {
     });
   }
 
+  handleFavorite = async () => {
+    const { songs } = this.state;
+    this.setState({
+      loading: true,
+    });
+    await addSong(songs);
+
+    this.setState({
+      loading: false,
+    });
+  }
+
   render() {
-    const { songs, position } = this.state;
-    console.log(songs);
+    const { songs, position, loading } = this.state;
     return (
       <div data-testid="page-album">
         <Header />
@@ -40,12 +54,18 @@ class album extends React.Component {
         <h2 data-testid="album-name">
           {position.collectionName}
         </h2>
+        {loading ? <Carregando /> : null}
         <ul>
 
           {songs.filter((disco) => disco !== position)
-            .map((disc, id) => <MusicCard { ...disc } key={ id } />)}
+            .map((disc, id) => (<MusicCard
+              { ...disc }
+              handleFavorite={ this.handleFavorite }
+              key={ id }
+            />))}
 
         </ul>
+
       </div>
     );
   }
