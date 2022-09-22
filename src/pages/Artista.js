@@ -6,7 +6,7 @@ class Artista extends React.Component {
     const { input } = this.props;
 
     return (
-      <p>
+      <p className="subtitle is-4">
         {`Resultado de álbuns de: ${input}`}
       </p>
     );

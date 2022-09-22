@@ -2,9 +2,6 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { createUser } from '../services/userAPI';
 import Carregando from './Carregando';
-// import Carregando from './Carregando';
-// import { Link } from 'react-router-dom';
-// import Search from './Search';
 
 class Login extends React.Component {
   constructor() {
@@ -16,10 +13,6 @@ class Login extends React.Component {
       redi: false,
     };
   }
-
-  // componentWillUnmount() {
-  //   <Redirect to="/search" />;
-  // }
 
   handleCondition = () => {
     const { namePerson } = this.state;
@@ -58,21 +51,32 @@ class Login extends React.Component {
     const { loading, btnDisabled, redi } = this.state;
 
     return (
-      <div data-testid="page-login">
+      <div className="loginBack" data-testid="page-login">
+        <div className="titleLogin">
+          <h1 className="title is-2">TrybeTunes</h1>
+        </div>
+        <div className="loginNameInput">
+          <p className="title is-4">Insira seu nome:</p>
+        </div>
+        <div className="login">
+          <input
+            className="input"
+            data-testid="login-name-input"
+            onChange={ this.handleValue }
+          />
+        </div>
+        <div className="loginbutton">
+          <button
+            className="button is-medium is-responsive"
+            type="button"
+            data-testid="login-submit-button"
+            disabled={ btnDisabled }
+            onClick={ this.handleSubmit }
+          >
+            Entrar
 
-        <input
-          data-testid="login-name-input"
-          onChange={ this.handleValue }
-        />
-        <button
-          type="button"
-          data-testid="login-submit-button"
-          disabled={ btnDisabled }
-          onClick={ this.handleSubmit }
-        >
-          Entrar
-
-        </button>
+          </button>
+        </div>
         <div>
           { loading ? <Carregando />
             : null}

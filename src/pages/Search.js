@@ -5,7 +5,6 @@ import Header from '../components/Header';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import Artista from './Artista';
 import Carregando from './Carregando';
-// import Album from './Album';
 
 class Search extends React.Component {
   constructor() {
@@ -41,6 +40,7 @@ class Search extends React.Component {
 
   handleSubmit = async (event) => {
     event.preventDefault();
+    console.log('Foi');
     const { input } = this.state;
     this.setState({
       artist: input,
@@ -51,10 +51,10 @@ class Search extends React.Component {
       load: true,
 
     });
-    const x = await searchAlbumsAPI(input);
+    const albumApi = await searchAlbumsAPI(input);
 
     this.setState({
-      apiObj: x,
+      apiObj: albumApi,
       input: '',
     }, this.handleCondition);
     this.setState({
@@ -64,12 +64,6 @@ class Search extends React.Component {
     });
   }
 
-  handleValueAlbum = (albumId) => {
-    console.log(albumId);
-    const { passarValorParaoPai } = this.props;
-    passarValorParaoPai(albumId);
-  }
-
   render() {
     const { btnDisabled, load, apiObj, input, artist } = this.state;
 
@@ -77,54 +71,62 @@ class Search extends React.Component {
       <div data-testid="page-search">
 
         <Header />
-        <form>
-          <input
-            data-testid="search-artist-input"
-            onChange={ this.handleValue }
-            value={ input }
-          />
+        <form className="searchForm">
+          <div className="inputSeachAlbum">
+            <input
+              className="input is-medium"
+              data-testid="search-artist-input"
+              onChange={ this.handleValue }
+              value={ input }
+            />
+          </div>
           <button
+            className="button is-medium is-responsive"
+            value={ artist }
             type="submit"
             data-testid="search-artist-button"
             disabled={ btnDisabled }
-            onClick={ this.handleSubmit }
+            onClick={ (event) => this.handleSubmit(event) }
           >
             Pesquisar
 
           </button>
         </form>
+        <div className="artistText">
+          {artist.length > 0 && !load && apiObj.length !== 0
+            ? <Artista input={ artist } />
 
-        {artist.length > 0
-          ? <Artista input={ artist } />
+            : <p className="subtitle is-4">Nenhum álbum foi encontrado</p>}
 
-          : null}
+          {load ? <Carregando /> : null}
 
-        {load ? <Carregando /> : null}
+        </div>
 
-        {apiObj.length === 0 ? <p>Nenhum álbum foi encontrado</p> : null}
+        <div className="albumBackground">
+          <ul className="ulSearch">
 
-        <ul>
+            {apiObj.map((album) => (
 
-          {apiObj.map((album) => (
+              <li className="album" key={ album.collectionId }>
 
-            <li key={ album.collectionId }>
+                <Link
+                  data-testid={ `link-to-album-${album.collectionId}` }
+                  to={ `/album/${album.collectionId}` }
+                  state={ { albumId: album.collectionId } }
+                >
+                  <img
+                    src={ album.artworkUrl100 }
+                    alt={ album.collectionName }
+                  />
 
-              <Link
-                data-testid={ `link-to-album-${album.collectionId}` }
-                to={ `/album/${album.collectionId}` }
-                state={ { albumId: album.collectionId } }
-              >
-                <img
-                  src={ album.artworkUrl100 }
-                  alt={ album.collectionName }
-                />
-                <p>{album.collectionName}</p>
+                  <p className="subtitle is-5">{album.collectionName}</p>
 
-              </Link>
+                </Link>
 
-            </li>
-          ))}
-        </ul>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     );
   }

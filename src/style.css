@@ -1,0 +1,340 @@
+@import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
+
+
+html{
+    background-color: black;
+
+    background-image: url("./img/pexels-pixabay-247676.jpg") ;
+    background-size: 100%;
+
+    /* height: 100vh; */
+}
+
+.header{
+    padding: 0%;
+    opacity: 70%;
+    background-color: rgba(37, 37, 37, 0.956);
+    box-shadow: 0px 0px 20px rgb(120, 118, 118)
+}
+
+.headerTitle{
+    padding:  20px;
+}
+
+.headerName{
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+
+                                 /* Página de Login */
+
+.loginbutton {
+    text-align: center;
+    padding: 20px;
+    
+}
+
+.loginBack{
+    
+    background-color:  rgba(0, 0, 0, 0.56);
+   
+}
+
+.loginNameInput{
+    text-align: center;
+    margin-bottom: 1%;
+}
+
+.titleLogin {
+    padding: 30px;
+    text-align: center;
+    margin-top: 20%;
+}
+
+.login{
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+}
+
+                                   /* Página do Header */
+
+.title {
+    color: rgb(187, 187, 187);
+}
+
+
+
+.nav{
+    display: flex;
+    justify-content: center;;
+    
+}
+
+
+@media only screen and (max-width: 500px){
+    .nav{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0%;
+    }
+    .searchNav{
+        display: flex;
+        flex-direction: column;
+        margin-left: auto;
+        margin-right: auto;
+        justify-content: center;
+      }
+
+   }
+
+
+
+.subtitle{
+    color: rgb(169, 167, 167);
+}
+
+
+.searchNav{
+    padding: 2%;
+}
+
+                                     /* CSS do COMPONENTE SEARCH */
+
+.searchForm {
+   display: flex;
+   justify-content:  center;
+   margin-top: 8%;
+}
+
+
+.albumBackground{
+    justify-content: center;
+    display: flex;
+    
+}
+
+.inputSeachAlbum{
+    width: 400px;
+}
+
+.ulSearch {
+    /* width: 500px; */
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: visible;
+    margin-top: 40px;
+    flex-shrink: 0;
+    width: 60%;
+    padding: 1%;
+    
+}
+
+.album {
+    /* margin-top: 200px; */
+    flex-direction: column;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.70) ;
+    text-align: center;
+    height: 250px;
+    width: 150px;
+}
+
+.artistText{
+    margin-top: 10px;
+    display: flex;
+    justify-content:  center;
+}
+
+                              /* conteúdo do componente Album */
+
+.albumList {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+    padding: 50px;
+    margin-top: 5%;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.70);  
+    box-shadow: 0px, 0px, 10px white;
+}
+
+.favMusic{
+  display: flex;
+  flex-direction: column;
+    display: block;
+    width: 500px;
+    
+}
+
+
+                                  /* Página profile Edit */
+
+
+.profileEditMain{
+
+    justify-content: center;
+    display: block
+    /* flex-direction: column; */
+}
+
+.textAreaDiv{
+    
+    width: 300px;
+}
+
+.imageinput{
+   text-align: center;
+    padding: 20px;
+
+}
+
+.inputDivEdit{
+    text-align: center;
+    padding: 20px;
+}
+
+.nameEdit{
+    text-align: center;
+    padding: 20px;
+   
+}
+.profEdit {
+    width: 300px;
+    margin-top: 20px;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+}
+
+
+.divImageEdit{
+    margin-top: 50px;
+    text-align: center;
+}
+
+.imageEdit{
+    margin-right: auto; 
+    margin-left: auto ;
+    width: 400px;
+    border-radius: 20%;
+}
+
+
+                              /* Página de músicas favoritas */
+.musicaFavList{
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.emptyFavList{
+    text-align: center;
+    padding: 20px;
+}
+
+.divImage{
+    width: 300px;
+    padding: 2%;
+}
+
+.audioTrackFav{
+    text-align: center;
+    margin-top: 80px;
+    float: right;
+}
+
+.imageFavList{
+    float: left;
+    width: 500px;
+   
+}
+
+.titleFav{
+    padding: 50px;
+    text-align: center;
+}
+
+.favoriteBackground{
+    background-color: rgba(0, 0, 0, 0.70); 
+}
+
+
+
+                            /* Página de perfil */
+
+
+
+
+.profileMain{
+    background-color: rgba(0, 0, 0, 0.70); 
+    height: 700px;
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.profileImage{
+    display: flex;
+    justify-content: left;
+    padding: 5%;
+}
+
+ 
+@media only screen and (max-width: 800px){
+    .profileImage{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .imageProfileDoc{
+        display: flex;
+        width: 300px;
+        
+    }
+    
+   }
+
+.profileInfo{
+    padding: 50px;
+    text-align: center;
+    float: right;
+    margin-right: auto
+}
+
+
+.buttonProfile{
+    margin-top: 5%;
+}
+
+.imageProfileDoc{
+    border-radius: 20%;
+}
+
+
+.descriptionProfile{
+    margin-top: 20px;
+    width: 300px;
+}
+
+.emailProfile{
+    margin-top: 20px;
+}
+
+                           /* Página carregando */
+
+
+.carregando{
+    margin-top: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+}

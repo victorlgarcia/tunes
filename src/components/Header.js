@@ -28,34 +28,55 @@ class Header extends React.Component {
     const { ret, recoveryName } = this.state;
 
     return (
-      <>
-        <h4> Menu </h4>
-        <header data-testid="header-component">
-          <nav>
-            <Link data-testid="link-to-search" to="/search"> Search </Link>
-            <Link
-              data-testid="link-to-favorites"
-              to="/favorites"
-            >
-              Músicas Favoritas
-
-            </Link>
-            <Link
-              data-testid="link-to-profile-edit"
-              to="/profile/edit"
-            >
-
-              Perfil Edit
-
-            </Link>
-            <Link data-testid="link-to-profile" to="/profile"> Perfil </Link>
-          </nav>
-          <p data-testid="header-user-name">{recoveryName}</p>
-        </header>
-
+      <div className="header">
+        <div className="headerTitle">
+          <h4 className="title is-3"> TrybeTunes </h4>
+        </div>
+        <div className="headerName">
+          {!ret ? null : <p className="title is-6">Bem Vindo(a)!</p> }
+          <p data-testid="header-user-name" className="title is-3">{recoveryName}</p>
+        </div>
         {!ret ? <Carregando />
           : null}
-      </>
+        <header data-testid="header-component">
+          <nav className="nav">
+            <div className="searchNav">
+              <Link
+                className="subtitle is-5"
+                data-testid="link-to-search"
+                to="/search"
+              >
+                {' '}
+                Search
+                {' '}
+              </Link>
+            </div>
+            <div className="searchNav">
+              <Link
+                className="subtitle is-5"
+                data-testid="link-to-favorites"
+                to="/favorites"
+              >
+                Músicas Favoritas
+
+              </Link>
+            </div>
+            <div className="searchNav">
+              <Link
+                className="subtitle is-5"
+                data-testid="link-to-profile"
+                to="/profile"
+              >
+                {' '}
+                Perfil
+                {' '}
+
+              </Link>
+            </div>
+          </nav>
+        </header>
+
+      </div>
     );
   }
 }
